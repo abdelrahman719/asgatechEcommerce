@@ -1,29 +1,30 @@
+<div class="container mx-auto my-3 ">
 
-<div class="container">
+    <div class="row justify-content-between">
+        @for(product of products$ |async; track $index ){
 
-    <div class="row">
-    @for(product of products$ |async; track $index ){
-    
-    
-    
 
-        <div class="col-md-4 product-card p-1">
 
-            <div class="img-container"> 
-                <img [src]="product.ProductImg" class=" rounded  w-100 h-100" [alt]="product.ProductName">
 
-            </div>
+        <div class=" col-6 col-md-3  ">
+            <div class="product-card m-2">
 
-         
-            <div class="card-body">
-                <h5 class="card-title">{{ product.ProductName }}</h5>
-                <p class="card-text">Price: {{ product.ProductPrice }} L.E</p>
-                <p class="card-text">Available: {{ product.AvailablePieces }}</p>
-                <a href="#" class="btn primary-btn">Add to Cart</a>
+                <div class="img-container">
+                    <img [src]="product.ProductImg" class=" rounded  w-100 h-100" [alt]="product.ProductName">
+
+                </div>
+
+                <div class="product-body py-2 px-3">
+                    <h5 class="product-title">{{ product.ProductName }}</h5>
+                    <p class="product-price">Price: {{ product.ProductPrice }} L.E</p>
+                    <p class="product-availability">Stock: {{ product.AvailablePieces }} Pcs</p>
+                    <a href="#" class="btn primary-btn">Add to Cart</a>
+                </div>
             </div>
         </div>
 
-        
-    }
-</div>
+
+
+        }
+    </div>
 </div>
