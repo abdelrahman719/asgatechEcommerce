@@ -10,6 +10,9 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { AppState } from '../../Store/app.state';
+import { Store } from '@ngrx/store';
+import { addOrder } from '../../Store/actions/orders.actions';
 
 
 @Component({
@@ -20,7 +23,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './orders.component.scss'
 })
 export class OrdersComponent implements OnInit {
-  orders$: Observable<any[]>;
+  //orders$: Observable<any[]>;
   finalOrdersList: order[] = []
   first = 0;
   rows = 10;
@@ -29,8 +32,11 @@ export class OrdersComponent implements OnInit {
   constructor(private ordersService: OrdersService,
     private usersService: UsersServiceService,
     private productsService: ProductsService,
+    private store: Store<AppState>,
   ) {
-    this.orders$ = this.ordersService.getOrders();
+    this.store.select('orders').subscribe((orders) => {
+      this.finalOrdersList = orders['orders']
+    })
   }
 
   ngOnInit(): void {
@@ -42,7 +48,7 @@ export class OrdersComponent implements OnInit {
           tempOrder.userData = this.usersService.getuserById(tempOrder['UserId'], users)
           tempOrder.totalPrice = this.productsService.getTotalPrice(orders[i].Products, products)
           tempOrder.ProductsWithDetails =this.productsService.attchProductDetails(orders[i].Products, products)
-          this.finalOrdersList.push(tempOrder);
+          this.store.dispatch(addOrder({ order: tempOrder }));
         }
       },
       error: error => {

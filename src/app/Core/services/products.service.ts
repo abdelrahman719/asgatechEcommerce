@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { product } from '../interfaces/product.interface';
 import { AppState } from '../../Store/app.state';
 import { Store } from '@ngrx/store';
-import { setProducts } from '../../Store/actions/products.actions';
+import { editProductQuantity, setProducts } from '../../Store/actions/products.actions';
 
 
 
@@ -22,10 +22,10 @@ export class ProductsService {
     return this.http.get<product[]>(PRODUCTS_DB_URL);
   }
   getProductsWithDispatch(){
-    debugger
+     
      this.http.get<product[]>(PRODUCTS_DB_URL).subscribe({
       next:(res)=>{
-        debugger
+         
         this.store.dispatch(setProducts({products:res}))
       }
     })
@@ -65,6 +65,6 @@ export class ProductsService {
   }
 
   editProductQuantity(productId:number, quantity:number){
-
+    this.store.dispatch(editProductQuantity({ productId, quantity }));
   }
 }

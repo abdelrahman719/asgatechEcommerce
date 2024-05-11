@@ -23,6 +23,7 @@ body {
 
     --basicColor: rgba(3, 120, 163, 0.647);
     --dangerColor:#d64278d4;
+    --successColor:rgba(239, 203, 20, 0.954);
 
 
 }
@@ -74,6 +75,22 @@ body {
         background-color: #ffffff;
         color: var(--dangerColor);
         border: solid 1px var(--dangerColor);
+        cursor: pointer !important;
+    }
+}
+.edit-btn {
+
+    padding: 10px 20px;
+    background-color: var(--successColor);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #ffffff;
+        color: var(--successColor);
+        border: solid 1px var(--successColor);
         cursor: pointer !important;
     }
 }

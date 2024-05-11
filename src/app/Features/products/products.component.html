@@ -27,7 +27,23 @@
                         <p class="product-availability">Stock: {{ product.AvailablePieces }} Pcs</p>
 
                     }
-                    <a href="#" class="btn primary-btn">Add to Cart</a>
+                    <button class="btn edit-btn mx-1" (click)="tempId = product.ProductId">Edit Quantity</button>
+
+                    @if(tempId == product.ProductId ){
+
+                        <div >
+                            <div class="input-group my-2">
+                                <input type="number" class="form-control" placeholder="New Quantity" min="0" [(ngModel)]="newQuantity">
+                                <div class="input-group-append">
+                                    <button  class=" btn edit-btn mx-2" type="button" 
+                                    (click)="updateProductQuantity(product.ProductId,newQuantity,product)">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <button class="primary-btn my-3"  (click)="addToCart(product,1)">Add to cart</button>
+                 
                 </div>
             </div>
         </div>

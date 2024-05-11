@@ -7,11 +7,13 @@ import { product } from '../../Core/interfaces/product.interface';
 import { AppState } from '../../Store/app.state';
 import { Store } from '@ngrx/store';
 import { setProducts } from '../../Store/actions/products.actions';
+import { FormsModule } from '@angular/forms';
+import { CartService } from '../../Core/services/cart.service';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   providers: [
     HttpClientModule
   ],
@@ -20,33 +22,38 @@ import { setProducts } from '../../Store/actions/products.actions';
 })
 export class ProductsComponent implements OnInit {
 
- productsList:product[]=[]
-
-  constructor(private productsService :ProductsService,
+  productsList: product[] = []
+  newQuantity: any;
+  tempId: any;
+  constructor(private productsService: ProductsService,
     private store: Store<AppState>,
-  ){
-    debugger
-
-    this.store.select('products').subscribe((products)=>{
-      debugger
-      console.log('products: ', products);
+    private cartService :CartService
+  ) {
+    this.store.select('products').subscribe((products) => {
       this.productsList = products['products']
     })
-
     this.productsService.getProductsWithDispatch()
 
   }
 
   ngOnInit(): void {
- 
 
-      this.getProducts()
 
   }
-  getProducts(){
-
- 
-
+  updateProductQuantity(productId: number, newQuantity: number ,product:product) {
+    if (newQuantity !== undefined && newQuantity !== null) {
+      this.productsService.editProductQuantity(productId, newQuantity);
+      this.cartService.updateProductCountInCart(product, newQuantity);
+      this.tempId =0
+      this.newQuantity =0
+      
+    }
   }
+
+  addToCart(product: product, quantity: number): void {
+    this.cartService.addProductToCart(product, quantity);
+  }
+
+
 
 }
