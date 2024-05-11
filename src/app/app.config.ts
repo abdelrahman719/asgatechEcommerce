@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { Routes, provideRouter } from '@angular/router';
 
 import { ProductsComponent } from './Features/products/products.component';
@@ -9,6 +9,8 @@ import {provideAnimations} from '@angular/platform-browser/animations'
 import { OrderDetailsComponent } from './Features/order-details/order-details.component';
 import { provideRouterStore } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
+import * as appState from '../app/Store/app.state';
+import { provideStoreDevtools } from '@ngrx/store-devtools'
 
 
 const routes: Routes = [
@@ -32,6 +34,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimations(),
     provideRouterStore(),
-    provideStore()
+    provideStore(appState.appState),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ]
 };

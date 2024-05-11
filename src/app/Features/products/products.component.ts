@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { product } from '../../Core/interfaces/product.interface';
+import { AppState } from '../../Store/app.state';
+import { Store } from '@ngrx/store';
+import { setProducts } from '../../Store/actions/products.actions';
 
 @Component({
   selector: 'app-products',
@@ -16,22 +19,34 @@ import { product } from '../../Core/interfaces/product.interface';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
-// products$: Observable<any[]>;
+
  productsList:product[]=[]
 
-  constructor(private productsService :ProductsService){
-   //this.products$ = this.productsService.getProducts();
+  constructor(private productsService :ProductsService,
+    private store: Store<AppState>,
+  ){
+    debugger
+
+    this.store.select('products').subscribe((products)=>{
+      debugger
+      console.log('products: ', products);
+      this.productsList = products['products']
+    })
+
+    this.productsService.getProductsWithDispatch()
+
   }
 
   ngOnInit(): void {
-    this.getProducts()
+ 
+
+      this.getProducts()
+
   }
   getProducts(){
-    this.productsService.getProducts().subscribe({
-      next:(res)=>{
-        this.productsList=res
-      }
-    })
+
+ 
+
   }
 
 }

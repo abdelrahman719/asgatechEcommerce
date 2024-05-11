@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { product } from '../interfaces/product.interface';
+import { AppState } from '../../Store/app.state';
+import { Store } from '@ngrx/store';
+import { setProducts } from '../../Store/actions/products.actions';
 
 
 
@@ -11,10 +14,21 @@ const PRODUCTS_DB_URL = '../../../assets/json-db/porducts.json'
 })
 export class ProductsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private store: Store<AppState>,
+  ) { }
 
   getProducts(): Observable<product[]> {
     return this.http.get<product[]>(PRODUCTS_DB_URL);
+  }
+  getProductsWithDispatch(){
+    debugger
+     this.http.get<product[]>(PRODUCTS_DB_URL).subscribe({
+      next:(res)=>{
+        debugger
+        this.store.dispatch(setProducts({products:res}))
+      }
+    })
   }
 
   getProductById(productId: number, productsList: product[]) {
