@@ -31,10 +31,10 @@
                         <span class="p-column-title">Id</span>{{order.OrderId}}
                     </td>
                     <td>
-                        <span class="p-column-title">Date</span>{{order.OrderDate | date:'medium'}}
+                        <span class="p-column-title">Date</span>{{ formatDate(order.OrderDate)  }}
                     </td>
                     <td>
-                        <span class="p-column-title">User name</span>{{order.userData.Name}}
+                        <span class="p-column-title">User name</span>{{order.userData?.Name}}
                     </td>
                     <td>
                         <span class="p-column-title">Total price</span>{{order.totalPrice | currency:'LE'}}
@@ -43,12 +43,15 @@
                         <span class="p-column-title">Payment method</span>{{order.PaymentType}}
                     </td>
                     <td>
-                        <a [routerLink]="['/' ,'order-detailes' ,order.OrderId]">
-                            <img class="icon" src="../../../assets/imgs/info-icon.png" alt="">
+                    @if(order.OrderId !=0){
 
-                        </a>
+                            <a [routerLink]="['/' ,'order-detailes' ,order.OrderId]">
+                                <img class="icon" src="../../../assets/imgs/info-icon.png" alt="">
+    
+                            </a>
+                        }
+                        
                     </td>
-          
          
                 </tr>
             </ng-template>

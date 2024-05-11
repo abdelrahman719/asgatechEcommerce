@@ -21,9 +21,8 @@ export class OrderDetailsComponent  {
     private productsService: ProductsService,
   ){
     this.activatedRoute.paramMap.subscribe((paramMap)=>{
-      const orderId = paramMap.get('id');
-      this.orderId = orderId   
-      this.getOrderData(orderId)
+      this.orderId = paramMap.get('id');   
+      this.getOrderData(this.orderId)
      })
   }
   order:any;

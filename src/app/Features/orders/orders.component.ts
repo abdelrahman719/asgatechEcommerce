@@ -18,7 +18,7 @@ import { addOrder } from '../../Store/actions/orders.actions';
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [CommonModule, TableModule, TagModule, ButtonModule , RouterModule],
+  imports: [CommonModule, TableModule, TagModule, ButtonModule, RouterModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })
@@ -40,6 +40,7 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
 
     this.combineData().subscribe({
       next: ([orders, users, products]) => {
@@ -47,7 +48,7 @@ export class OrdersComponent implements OnInit {
           let tempOrder = orders[i];
           tempOrder.userData = this.usersService.getuserById(tempOrder['UserId'], users)
           tempOrder.totalPrice = this.productsService.getTotalPrice(orders[i].Products, products)
-          tempOrder.ProductsWithDetails =this.productsService.attchProductDetails(orders[i].Products, products)
+          tempOrder.ProductsWithDetails = this.productsService.attchProductDetails(orders[i].Products, products)
           this.store.dispatch(addOrder({ order: tempOrder }));
         }
       },
@@ -68,9 +69,9 @@ export class OrdersComponent implements OnInit {
 
 
 
-  pageChange(event: any) {
-    this.first = event.first;
-    this.rows = event.rows;
+  formatDate(dateString: string) {
+    return dateString.slice(0, 15);
+
   }
 
 

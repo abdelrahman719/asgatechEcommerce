@@ -15,7 +15,7 @@ export const orderReducer = createReducer(
 
   on(addOrder, (state, { order }) => ({
     ...state,
-    orders: [...state.orders, order]
+    orders: [...state.orders, order].sort((a, b) => a.OrderId - b.OrderId)
   }))
 
 );

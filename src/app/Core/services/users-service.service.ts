@@ -17,7 +17,7 @@ export class UsersServiceService {
   }
 
   getuserById(userId: string, usersList: user[]) {
-    let user = usersList.filter(user => user['Id'] == userId)
+    let user = usersList.filter(user => user['Id'] == userId && user['Name'])
     return user[0]
   }
 }

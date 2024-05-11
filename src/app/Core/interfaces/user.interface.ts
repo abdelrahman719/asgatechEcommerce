@@ -1,11 +1,11 @@
 export interface user {
 
-    'Id': string,
+    'Id'?: string,
     "Name": string,
     "Email": string,
     "Phone": string,
     "Address": string,
-    "RegisterDate": string,
+    "RegisterDate"?: string,
    
 
 }
