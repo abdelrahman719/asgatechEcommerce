@@ -27,7 +27,7 @@
                         <p class="product-availability">Stock: {{ product.AvailablePieces }} Pcs</p>
 
                     }
-                    <button class="btn edit-btn mx-1" (click)="tempId = product.ProductId">Edit Quantity</button>
+                    <button class="btn edit-btn mx-2" (click)="tempId = product.ProductId">Edit Quantity</button>
 
                     @if(tempId == product.ProductId ){
 
@@ -41,8 +41,11 @@
                             </div>
                         </div>
                     }
+                    @if(product.AvailablePieces > 0){
 
-                    <button class="primary-btn my-3"  (click)="addToCart(product,1)">Add to cart</button>
+                        <button class="btn primary-btn "  (click)="addToCart(product,1)">Add to cart</button>
+                    }
+                  
                  
                 </div>
             </div>
