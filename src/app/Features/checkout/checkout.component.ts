@@ -6,18 +6,19 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addOrder } from '../../Store/actions/orders.actions';
 import { product } from '../../Core/interfaces/product.interface';
-import { ProductsService } from '../../Core/services/products.service';
 import { Router } from '@angular/router';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule , InputTextModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent {
   cartItems: any;
+  totalPrice:number=0;
   checkoutForm = new FormGroup({
     customerName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -33,11 +34,14 @@ export class CheckoutComponent {
     this.store.select('cart').subscribe((cart) => {
       this.cartItems = cart['cart']
     })
+    this.cartItems.forEach((item: { product: product, count: number, productDetails: product }) => (
+      this.totalPrice += (item.count * item.product.ProductPrice)
+    ))
   }
 
   addOrder() {
     let products: any[] = []
-    let totalPrice: number = 0;
+  
     this.cartItems.forEach((item: { product: product, count: number, productDetails: product }) => (
       products.push({
         ProductId: item.product.ProductId,
@@ -46,9 +50,7 @@ export class CheckoutComponent {
       })
 
     ))
-    this.cartItems.forEach((item: { product: product, count: number, productDetails: product }) => (
-      totalPrice += (item.count * item.product.ProductPrice)
-    ))
+
     if (this.checkoutForm.valid &&
        this.checkoutForm.value.paymentMethod &&
        this.checkoutForm.value.customerName &&
@@ -63,7 +65,7 @@ export class CheckoutComponent {
         OrderDate: new Date().toISOString(),
         ProductsWithDetails: products,
         Products: products,
-        totalPrice: totalPrice,
+        totalPrice: this.totalPrice,
         PaymentType: this.checkoutForm.value.paymentMethod,
         userData: {
           Name: this.checkoutForm.value.customerName,

@@ -28,19 +28,19 @@
             <ng-template pTemplate="body" let-order let-columns="columns">
                 <tr>
                     <td>
-                        <span class="p-column-title">Id</span>{{order.OrderId}}
+                        {{order.OrderId}}
                     </td>
                     <td>
-                        <span class="p-column-title">Date</span>{{ formatDate(order.OrderDate)  }}
+                        {{ formatDate(order.OrderDate)  }}
                     </td>
                     <td>
-                        <span class="p-column-title">User name</span>{{order.userData?.Name}}
+                       {{order.userData?.Name}}
                     </td>
                     <td>
-                        <span class="p-column-title">Total price</span>{{order.totalPrice | currency:'LE'}}
+                       {{order.totalPrice | currency:'LE'}}
                     </td>
                     <td>
-                        <span class="p-column-title">Payment method</span>{{order.PaymentType}}
+                       {{order.PaymentType}}
                     </td>
                     <td>
                     @if(order.OrderId !=0){

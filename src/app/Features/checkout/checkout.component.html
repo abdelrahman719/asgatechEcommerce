@@ -1,70 +1,64 @@
 <div class="container mx-auto my-3 ">
-    <h5 class="header primary-color my-6">Picked List</h5>
-    <div class="list-container">
-        <div  class="row ">
-            @for(item of cartItems; track $index ){
+  @if(cartItems.length>0){
 
-            <div class="col-2 col-md-3 ">
-                <div class="flex ">
-                    <div class="img-cont">
-                        <img class="w-100 h-100" [src]="item.product.ProductImg" [alt]="item.product.ProductName">
-                    </div>
-                    <div class="product-details px-3">
-                        <p class="title">
-                            {{item.product.ProductName}}
-                        </p>
-                        <p class="price">
-                            {{item.product.ProductPrice | currency:'LE'}}
-                        </p>
-                   
-                    </div>
-
-                </div>
-            </div>
-
-            }
-
-
-        </div>
-    </div>
-
-    <!-- checkout.component.html -->
-<div class="container">
-    <form [formGroup]="checkoutForm" (ngSubmit)="addOrder()">
-      <div>
-        <label for="customerName">Name:</label>
-        <input type="text" id="customerName" formControlName="customerName">
-      </div>
-      <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" formControlName="email">
-      </div>
-      <div>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" formControlName="phone">
-      </div>
-      <div>
-        <label for="address">Address:</label>
-        <input type="text" id="address" formControlName="address">
-      </div>
-      <div>
-        <label for="paymentMethod">Payment Method:</label>
-        <input type="text" id="paymentMethod" formControlName="paymentMethod">
-      </div>
-      <!-- <div>
-        <label for="paymentMethod">Payment Method:</label>
-        <select id="paymentMethod" formControlName="paymentMethod">
-          <option value="Cash">Cash</option>
-          <option value="Online">Online</option>
-        
-        </select>
-      </div> -->
-      <button type="submit" [disabled]="!checkoutForm.valid">Place Order</button>
-    </form>
-  </div>
+    <h5 class="header text-center primary-color my-3">Picked List / Total Cost {{ totalPrice |currency :'LE' }} </h5>
+    <div class="w-75 mx-auto ">
+      <div class="row ">
+        @for(item of cartItems; track $index ){
   
-    <div class="text-center">
-
-        <button class="primary-btn my-3">Add order</button>
+        <div class="col-12 my-2 product-cont  ">
+          <div class="  row ">
+            <div class="img-cont px-0 mx-0 col-3">
+              <img class="w-100 h-100" [src]="item.product.ProductImg" [alt]="item.product.ProductName">
+            </div>
+            <div class="product-details px-1 col-8">
+              <p class="title">
+                {{item.product.ProductName}}
+              </p>
+              <p class="price">
+                {{item.product.ProductPrice | currency:'LE'}}
+              </p>
+  
+            </div>
+  
+          </div>
+        </div>
+  
+        }
+  
+  
+      </div>
     </div>
+  
+  
+    <div class=" d-flex justify-content-center ">
+      <form class="w-75 " [formGroup]="checkoutForm" (ngSubmit)="addOrder()">
+        <div class="form-group">
+          <label for="customerName">Name:</label>
+          <input pInputText type="text" id="customerName" formControlName="customerName">
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input pInputText type="email" id="email" formControlName="email">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone:</label>
+          <input pInputText type="text" id="phone" formControlName="phone">
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input pInputText type="text" id="address" formControlName="address">
+        </div>
+        <div class="form-group">
+          <label for="paymentMethod">Payment Method:</label>
+          <input pInputText type="text" id="paymentMethod" formControlName="paymentMethod">
+        </div>
+  
+        <button type="submit" [disabled]="!checkoutForm.valid" class="primary-btn my-3">Add Order</button>
+      </form>
+    </div>
+  }@else{
+    <h5 class="header danger-color text-center my-5">Empty Cart 🛒</h5>
+  }
+
 </div>

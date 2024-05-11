@@ -1,3 +1,37 @@
-.img-cont{
-    height: 50%;
+.product-cont{
+    border: solid 1px var(--basicColor);
+    border-radius: 5px;
+
+    .img-cont{
+        height: 10rem;
+        width: 10rem;
+        img{
+            border-radius: 5px;
+        }
+    }
+    .product-details{
+        .title{
+            color: var(--basicColor);
+            font-size: 1.8rem;
+        }
+        .price{
+            color: rgb(126, 109, 9);
+            font-size: 1.5rem;
+        }
+    }
+}
+.header{
+    font-size: 2rem;
+}
+.form-group{
+    display: flex; 
+    justify-content: space-between;
+    width: 50%;
+    margin: 1rem 0;
+    label{
+        font-size: 1.2rem;
+    }
+    input{
+        width: 75%;
+    }
 }

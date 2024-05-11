@@ -1,29 +1,61 @@
 <div class="container mt-4">
-    <h2>Order Details 
-    </h2>
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Order ID: {{ order.OrderId }}</h5>
-            <p class="card-text"><strong>Date:</strong> {{ order.OrderDate | date:'medium' }}</p>
-            <p class="card-text"><strong>User:</strong> {{ order.userData.Name }}</p>
-            <p class="card-text"><strong>Total Price:</strong> {{ order.totalPrice |  currency:'LE' }}  </p>
-            <p class="card-text"><strong>Payment Type:</strong> {{ order.PaymentType }}</p>
+    <h2 class="primary-color my-2">Order Details  </h2>
+    <div class="">
+        <div class="info-card px-3 py-3">
+            <h5 class="title my-2">Order ID: {{ order.OrderId }}</h5>
+            <p class="value my-1"><strong>Date:</strong> {{ order.OrderDate | date:'medium' }}</p>
+            <p class="value my-1"><strong>User:</strong> {{ order.userData.Name }}</p>
+            <p class="value my-1"><strong>Total Price:</strong> {{ order.totalPrice |  currency:'LE' }}  </p>
+            <p class="value my-1"><strong>Payment Type:</strong> {{ order.PaymentType }}</p>
         </div>
     </div>
 
-    <h3 class="mt-4">Products</h3>
+    <h3 class="my-3 text-center primary-color">Products</h3>
     <div class="row  ">
   
             @for(product of order.Products ; track $index ){
-            <div class="card col-2 col-md-3">
-                <img [src]="product.productDetails.ProductImg" class="card-img-top" alt="Product Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.productDetails.ProductName }}</h5>
-                    <p class="card-text">Price: ${{ product.productDetails.ProductPrice |  currency:'LE' }}</p>
-                    <p class="card-text">Quantity: {{ product.Quantity }}</p>
-                    <p class="card-text">Available: {{ product.productDetails.AvailablePieces }}</p>
+ 
+
+            <div class=" col-6 col-md-3  ">
+                <div class="product-card m-2">
+    
+                    <div class="img-container">
+                        <img [src]="product.productDetails.ProductImg" class=" rounded  w-100 h-100" [alt]="product.productDetails.ProductName">
+    
+                    </div>
+    
+                    <div class="product-body py-2 px-3">
+                        <h5 class="product-title">#{{product.productDetails.ProductId}} / {{ product.productDetails.ProductName }}</h5>
+                        <p class="product-price">Price: {{ product.productDetails.ProductPrice }} L.E</p>
+                        @if(product.productDetails.AvailablePieces<10 && product.productDetails.AvailablePieces != 0){
+    
+                            <p class="product-availability danger-color"> {{ product.AvailablePieces }} Pcs <span>( low stock )</span></p>
+                        }
+                        @else if(product.productDetails.AvailablePieces == 0){
+    
+                            <p class="product-availability danger-color">No stock</p>
+                        }
+                        @else {
+                            <p class="product-availability">Stock: {{ product.productDetails.AvailablePieces }} Pcs</p>
+    
+                        }
+                   
+                     
+                    </div>
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
             }
 
 

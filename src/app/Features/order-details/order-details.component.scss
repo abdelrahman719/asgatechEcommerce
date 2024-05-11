@@ -1,0 +1,12 @@
+.info-card{
+    border: solid 1px var(--basicColor);
+    border-radius: 5px;
+    .title{
+        color: rgb(8, 54, 74);
+        font-size: 1.8rem;
+        font-weight: 900;
+    }
+    .value{
+        font-size: 1.5rem;
+    }
+}
