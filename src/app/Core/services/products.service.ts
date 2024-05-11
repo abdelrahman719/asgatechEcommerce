@@ -18,20 +18,39 @@ export class ProductsService {
   }
 
   getProductById(productId: number, productsList: product[]) {
-    let prod :product[] = productsList.filter(product => product['ProductId'] == productId)
+    let prod: product[] = productsList.filter(product => product['ProductId'] == productId)
     return prod[0]
   }
-  getTotalPrice(targetProducts:{ "ProductId": number, "Quantity": number }[] ,
-  productsList: product[]
+  getTotalPrice(
+    targetProducts: { "ProductId": number, "Quantity": number }[],
+    productsList: product[]
   ) {
 
-    let totalCost =0
-    for(let i=0 ; i<targetProducts.length ;i++){
-    let tempProduct:product= this.getProductById(targetProducts[i]['ProductId'],productsList)
-    totalCost += tempProduct['ProductPrice'] * targetProducts[i]['Quantity']
+    let totalCost = 0
+    for (let i = 0; i < targetProducts.length; i++) {
+      let tempProduct: product = this.getProductById(targetProducts[i]['ProductId'], productsList)
+      totalCost += tempProduct['ProductPrice'] * targetProducts[i]['Quantity']
 
     }
     return totalCost;
+
+  }
+  attchProductDetails(targetProducts: { "ProductId": number, "Quantity": number }[],
+    productsList: product[]) {
+
+    let finalProducts: { "ProductId": number, "Quantity": number , "productDetails"?:product }[] = []
+    for (let i = 0; i < targetProducts.length; i++) {
+      let tempProduct: product = this.getProductById(targetProducts[i]['ProductId'], productsList)
+      let targetProductObject:  { "ProductId": number, "Quantity": number , "productDetails"?:product } = targetProducts[i]
+      targetProductObject['productDetails'] =tempProduct
+      finalProducts.push(targetProductObject)
+
+    }
+    return finalProducts
+
+  }
+
+  editProductQuantity(productId:number, quantity:number){
 
   }
 }

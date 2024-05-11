@@ -1,1 +1,32 @@
-<p>order-details works!</p>
+<div class="container mt-4">
+    <h2>Order Details 
+    </h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: {{ order.OrderId }}</h5>
+            <p class="card-text"><strong>Date:</strong> {{ order.OrderDate | date:'medium' }}</p>
+            <p class="card-text"><strong>User:</strong> {{ order.userData.Name }}</p>
+            <p class="card-text"><strong>Total Price:</strong> {{ order.totalPrice |  currency:'LE' }}  </p>
+            <p class="card-text"><strong>Payment Type:</strong> {{ order.PaymentType }}</p>
+        </div>
+    </div>
+
+    <h3 class="mt-4">Products</h3>
+    <div class="row  ">
+  
+            @for(product of order.Products ; track $index ){
+            <div class="card col-2 col-md-3">
+                <img [src]="product.productDetails.ProductImg" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.productDetails.ProductName }}</h5>
+                    <p class="card-text">Price: ${{ product.productDetails.ProductPrice |  currency:'LE' }}</p>
+                    <p class="card-text">Quantity: {{ product.Quantity }}</p>
+                    <p class="card-text">Available: {{ product.productDetails.AvailablePieces }}</p>
+                </div>
+            </div>
+            }
+
+
+    
+    </div>
+</div>

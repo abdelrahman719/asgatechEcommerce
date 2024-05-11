@@ -1,9 +1,7 @@
 <div class="container mx-auto my-3 ">
 
     <div class="row justify-content-between">
-        @for(product of products$ |async; track $index ){
-
-
+        @for(product of productsList; track $index ){
 
 
         <div class=" col-6 col-md-3  ">
@@ -17,7 +15,18 @@
                 <div class="product-body py-2 px-3">
                     <h5 class="product-title">#{{product.ProductId}} / {{ product.ProductName }}</h5>
                     <p class="product-price">Price: {{ product.ProductPrice }} L.E</p>
-                    <p class="product-availability">Stock: {{ product.AvailablePieces }} Pcs</p>
+                    @if(product.AvailablePieces<10 && product.AvailablePieces != 0){
+
+                        <p class="product-availability danger-color"> {{ product.AvailablePieces }} Pcs <span>( low stock )</span></p>
+                    }
+                    @else if(product.AvailablePieces == 0){
+
+                        <p class="product-availability danger-color">No stock</p>
+                    }
+                    @else {
+                        <p class="product-availability">Stock: {{ product.AvailablePieces }} Pcs</p>
+
+                    }
                     <a href="#" class="btn primary-btn">Add to Cart</a>
                 </div>
             </div>

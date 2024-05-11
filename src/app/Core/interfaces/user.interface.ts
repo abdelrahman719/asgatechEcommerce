@@ -4,7 +4,7 @@ export interface user {
     "Name": string,
     "Email": string,
     "Phone": string,
-     "Address": string,
+    "Address": string,
     "RegisterDate": string,
    
 
